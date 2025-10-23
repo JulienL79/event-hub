@@ -3,7 +3,7 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "*.{ts,tsx,js,json,md,yml}": [
+    "*.{ts,tsx,js,json,yml}": [
       "prettier --write",
       "git add"
     ]
@@ -12,6 +12,7 @@
     "@commitlint/cli": "^20.1.0",
     "@commitlint/config-conventional": "^20.0.0",
     "husky": "^8.0.0",
-    "lint-staged": "^16.2.6"
+    "lint-staged": "^16.2.6",
+    "prettier": "^3.6.2"
   }
 }
