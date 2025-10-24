@@ -1,104 +1,10 @@
 # Event Hub : Documentation et Guides
 
-## 1. Conventions de commits
-
-Nous utilisons le standard **Conventional Commits** pour écrire les messages de commit :
-
-```<type>(<optional scope>): <description>```
-
-
-Types de commits recommandés
-
-| Type | Quand l’utiliser |
-| :--- | :--- |
-| **feat** | Nouvelle fonctionnalité |
-| **fix** | Correction de bug |
-| **docs** | Documentation |
-| **style** | Formatage ou style, sans changement fonctionnel |
-| **refactor** | Refactorisation du code, sans bug ni nouvelle feature |
-| **perf** | Amélioration des performances |
-| **test** | Ajout ou modification de tests |
-
----
-
-## 2. Mise en place des hooks Git
-
-Ce projet utilise :
-
-* **Husky** : pour déclencher des hooks Git automatiquement
-* **lint-staged** : pour formater/linter les fichiers staged avant commit
-* **commitlint** : pour vérifier que les messages de commit respectent le format Conventional Commits
-
-### Étapes pour l’utilisateur
-
-**Cloner le projet :**
-
-```bash
-git clone [https://github.com/TON_UTILISATEUR/eventhub.git](https://github.com/TON_UTILISATEUR/eventhub.git)
-cd eventhub
-```
-
-**Installer les dépendances :**
-
-```bash
-npm install
-```
-
-**Initialiser les hooks Husky :**
-
-```bash
-npm run prepare
-```
-
-Après ça, tous les commits seront automatiquement formatés et vérifiés.
-
-## 3. Exemple de commit
-
-```bash
-git add .
-git commit -m "feat(auth): add login feature"
-git push origin dev
-```
-
-Le code est formaté via lint-staged
-
-Le message de commit est validé via commitlint
-
-## 4. Workflow Git (Branches)
-
-Nous utilisons un workflow simple basé sur Git avec deux branches principales protégées :
-
-| Branche | Rôle | Statut de protection |
-| :--- | :--- | :--- |
-| **main** | **Production** (Contient le code prêt à être déployé ou déjà en production). | Protégée. |
-| **dev** | **Intégration** (Contient les dernières fonctionnalités stables, base de travail). | Protégée. |
-
-### Schéma et règles de développement
-
-Toutes les nouvelles fonctionnalités, corrections de bugs ou travaux se font sur une **branche éphémère** créée à partir de `dev`.
-
-**Règles de nommage :** `<type>/<description-courte>` (ex: `feat/add-api-endpoint` ou `fix/login-bug`).
-
-Une Pull Request (PR) vers `dev` est requise pour toute intégration.
-
-```text
-main (prod)
-  ^
-  | Merge via PR (après validation sur dev)
-  |
-dev (integration)
-  ^  ^  ^
-  |  |  |
-  |  |  Branch éphémère (feat/...)
-  |  Branch éphémère (fix/...)
-  Branch éphémère (refactor/...)
-```
-
-## 5. Architecture du Projet et Environnement DevOps
+## 1. Architecture du Projet et Environnement DevOps
 Cette section présente le découpage de l'application et les technologies utilisées pour les différents environnements (Développement, Intégration, Production).
 
 
-### 5.1. Arborescence du Projet (Structure)
+### 1.1. Arborescence du Projet (Structure)
 La structure du projet est organisée autour de deux applications principales (backend et frontend) et de l'outillage DevOps/qualité (infrastructure, .husky).
 
 ```bash
@@ -126,9 +32,8 @@ La structure du projet est organisée autour de deux applications principales (b
 │   └── package.json
 └── README.md
 ```
-### 5.2. Stack Technique & Architecture des Applications 
 
-**Stack Technique**
+### 1.2. Stack Technique
 
 | Composant | Technologie | Rôle |
 | :--- | :--- | :--- |
@@ -138,6 +43,8 @@ La structure du projet est organisée autour de deux applications principales (b
 | **Cache/Broker** | **Redis** | **Mise en cache rapide** des données fréquemment consultées (sessions, tokens, résultats d'API). |
 | **Conteneurisation** | **Docker** & **Docker Compose** | Empaqueter l'application et ses dépendances. |
 | **CI/CD** | **GitHub Actions** (ou Gitlab CI) | Automatisation des tests et des déploiements. |
+
+### 1.3. Architecture des Applications 
 
 **Backend (Node.js)**
 
@@ -161,7 +68,7 @@ L'application React est structurée selon l'Architecture Atomique.
 
 - Pages (pages/) : Combinaisons d'organismes pour former l'écran final.
 
-### 5.3. Détail de l'Environnement DevOps (Conteneurisation)
+### 1.4. Détail de l'Environnement DevOps (Conteneurisation)
 L'environnement de développement et de déploiement est entièrement conteneurisé grâce à Docker et Docker Compose, assurant la portabilité et l'isolation des services.
 
 **Services Docker (Conteneurs)**
@@ -187,10 +94,10 @@ Le conteneur nginx (configuré via infrastructure/nginx/nginx.conf) joue un rôl
 
 L'utilisation de Nginx permet de sécuriser, optimiser les performances et simplifier la gestion des différents services par le réseau Docker.
 
-## 6. Guide d'Installation et de Démarrage (Développement Local)
+## 2. Guide d'Installation et de Démarrage (Développement Local)
 Ce guide fournit les étapes exactes pour cloner, configurer et lancer l'application en environnement de développement local.
 
-### 6.1. Prérequis
+### 2.1. Prérequis
 Assurez-vous que les outils suivants sont installés sur votre machine avant de commencer :
 
 | Outil | Version Minimale |
@@ -200,7 +107,7 @@ Assurez-vous que les outils suivants sont installés sur votre machine avant de 
 | **Docker** | `20.x` |
 | **Docker Compose** | `2.x` |
 
-### 6.2. Procédure d'Installation
+### 2.2. Procédure d'Installation
 Suivez ces étapes dans l'ordre pour préparer votre environnement :
 
 **Étape 1 : Clonage du Projet**
@@ -238,7 +145,7 @@ Activez les outils de qualité de code (Husky, lint-staged, commitlint) qui séc
 npm run prepare
 ```
 
-## 6.3. Démarrage de l'Application
+## 2.3. Démarrage de l'Application
 Le projet utilise Docker Compose pour orchestrer les services (API Node.js et Base de Données PostgreSQL).
 
 ```bash
@@ -260,4 +167,76 @@ Pour arrêter tous les services conteneurisés :
 
 ```bash
 docker-compose down
+```
+
+## 3. Environnement Git
+
+### 3.1. Conventional Commits
+
+Nous utilisons le standard **Conventional Commits** pour écrire les messages de commit :
+
+```<type>(<optional scope>): <description>```
+
+Types de commits recommandés
+
+| Type | Quand l’utiliser |
+| :--- | :--- |
+| **feat** | Nouvelle fonctionnalité |
+| **fix** | Correction de bug |
+| **docs** | Documentation |
+| **style** | Formatage ou style, sans changement fonctionnel |
+| **refactor** | Refactorisation du code, sans bug ni nouvelle feature |
+| **perf** | Amélioration des performances |
+| **test** | Ajout ou modification de tests |
+
+---
+
+### 3.2. Mise en place des hooks Git
+
+Ce projet utilise :
+
+* **Husky** : pour déclencher des hooks Git automatiquement
+* **lint-staged** : pour formater/linter les fichiers staged avant commit
+* **commitlint** : pour vérifier que les messages de commit respectent le format Conventional Commits
+
+### 3.3. Exemple de commit
+
+```bash
+git add .
+git commit -m "feat(auth): add login feature"
+git push origin dev
+```
+
+Le code est formaté via lint-staged
+
+Le message de commit est validé via commitlint
+
+### 3.4. Workflow Git (Branches)
+
+Nous utilisons un workflow simple basé sur Git avec deux branches principales protégées :
+
+| Branche | Rôle | Statut de protection |
+| :--- | :--- | :--- |
+| **main** | **Production** (Contient le code prêt à être déployé ou déjà en production). | Protégée. |
+| **dev** | **Intégration** (Contient les dernières fonctionnalités stables, base de travail). | Protégée. |
+
+### Schéma et règles de développement
+
+Toutes les nouvelles fonctionnalités, corrections de bugs ou travaux se font sur une **branche éphémère** créée à partir de `dev`.
+
+**Règles de nommage :** `<type>/<description-courte>` (ex: `feat/add-api-endpoint` ou `fix/login-bug`).
+
+Une Pull Request (PR) vers `dev` est requise pour toute intégration.
+
+```text
+main (prod)
+  ^
+  | Merge via PR (après validation sur dev)
+  |
+dev (integration)
+  ^  ^  ^
+  |  |  |
+  |  |  Branch éphémère (feat/...)
+  |  Branch éphémère (fix/...)
+  Branch éphémère (refactor/...)
 ```
