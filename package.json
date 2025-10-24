@@ -4,8 +4,13 @@
   },
   "lint-staged": {
     "*.{ts,tsx,js,json,yml}": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
+    ],
+    "ignore": [
+      "**/dist/**",
+      "**/build/**",
+      "**/node_modules/**",
+      "**/package*.json"
     ]
   },
   "devDependencies": {

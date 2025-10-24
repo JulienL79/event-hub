@@ -52,7 +52,7 @@ npm run prepare
 
 Après ça, tous les commits seront automatiquement formatés et vérifiés.
 
-### 3. Exemple de commit
+## 3. Exemple de commit
 
 ```bash
 git add .
@@ -63,3 +63,32 @@ git push origin dev
 Le code est formaté via lint-staged
 
 Le message de commit est validé via commitlint
+
+## 4. Workflow Git (Branches)
+
+Nous utilisons un workflow simple basé sur Git avec deux branches principales protégées :
+
+| Branche | Rôle | Statut de protection |
+| :--- | :--- | :--- |
+| **main** | **Production** (Contient le code prêt à être déployé ou déjà en production). | Protégée. |
+| **dev** | **Intégration** (Contient les dernières fonctionnalités stables, base de travail). | Protégée. |
+
+### Schéma et règles de développement
+
+Toutes les nouvelles fonctionnalités, corrections de bugs ou travaux se font sur une **branche éphémère** créée à partir de `dev`.
+
+**Règles de nommage :** `<type>/<description-courte>` (ex: `feat/add-api-endpoint` ou `fix/login-bug`).
+
+Une Pull Request (PR) vers `dev` est requise pour toute intégration.
+
+```text
+main (prod)
+  ^
+  | Merge via PR (après validation sur dev)
+  |
+dev (integration)
+  ^  ^  ^
+  |  |  |
+  |  |  Branch éphémère (feat/...)
+  |  Branch éphémère (fix/...)
+  Branch éphémère (refactor/...)

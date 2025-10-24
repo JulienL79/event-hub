@@ -1,0 +1,22 @@
+import dotenv from "dotenv";
+import { EnvConfig } from "../types/env";
+
+dotenv.config();
+
+export const env: EnvConfig = {
+  PORT: parseInt(process.env.PORT || "3000"),
+  NODE_ENV: process.env.NODE_ENV as "development" | "production" | "test",
+  ORIGIN: process.env.ORIGIN || "http://localhost:5173",
+  DATABASE_URL:
+    process.env.DATABASE_URL ||
+    "postgresql://postgres:admin@localhost:5432/blog",
+  JWT_SECRET:
+    process.env.JWT_SECRET || "SecretTresBienGardeNePasDivulgerPubliquement",
+  ROLE_USER_ID: process.env.ROLE_USER_ID || "",
+  RESET_MAIL_ADDRESS: process.env.RESET_MAIL_ADDRESS || "reset@gmail.com",
+  WEBSITE_URL: process.env.WEBSITE_URL || "https://rent-a-van.com",
+  PASSWORD_RESET_MAIL: process.env.PASSWORD_RESET_MAIL || "reset",
+  TZ: process.env.TZ || "Europe/Paris",
+  REDIS_HOST: process.env.REDIS_HOST || "redis",
+  REDIS_PORT: process.env.REDIS_PORT || "6379",
+};
