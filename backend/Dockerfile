@@ -11,8 +11,10 @@ COPY shared/package*.json ./shared/
 
 RUN npm install
 
+COPY backend/package*.json ./backend/
+COPY backend/tsconfig.json ./backend/
 COPY backend/src ./backend/src
-COPY shared/validators ./shared/validators
+COPY shared/ ./shared/
 
 RUN npm run build --workspace shared
 RUN npm run build --workspace backend
