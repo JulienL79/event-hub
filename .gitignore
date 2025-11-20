@@ -1,5 +1,5 @@
 # Node modules
-/node_modules
+node_modules/
 /.pnp
 .pnp.js
 
@@ -30,6 +30,7 @@ coverage
 # Environment files
 .env
 .env.local
+.env.docker
 .env.development.local
 .env.test.local
 .env.production.local

@@ -13,6 +13,9 @@ COPY . .
 
 RUN npm run build
 
+# === MIGRATION DOCKER ===
+RUN npm run migrate
+
 # ====================================================================
 # ÉTAPE 2 : Production (Image d'exécution légère)
 # ====================================================================

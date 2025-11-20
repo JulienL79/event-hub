@@ -5,9 +5,12 @@ services:
     container_name: eventhub_db
     restart: always
     ports:
-      - "5432:5432"
+      - "5433:5432"
     env_file:
-      - .env
+      - .env.docker
+    volumes:
+      - ./infrastructure/db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - postgres_data:/var/lib/postgresql/data
 
   # 2. Backend API
   backend:
@@ -19,7 +22,7 @@ services:
     ports:
       - "3000:3000"
     env_file:
-      - .env
+      - .env.docker
     environment:
       NODE_ENV: development
       PORT: 3000
@@ -57,4 +60,5 @@ services:
       - redis_data:/data
 
 volumes:
+  postgres_data:
   redis_data:

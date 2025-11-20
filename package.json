@@ -3,7 +3,7 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "*.{ts,tsx,js,json,yml}": [
+    "*.{ts,tsx,js,yml}": [
       "prettier --write"
     ],
     "ignore": [

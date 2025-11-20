@@ -1,26 +1,28 @@
 import { Pool } from "pg";
-import { migrate } from "drizzle-orm/node-postgres/migrator"; // migrate est une fct de drizzle qui permet de migrer la db
+import { migrate } from "drizzle-orm/node-postgres/migrator";
 import { NodePgDatabase, drizzle } from "drizzle-orm/node-postgres";
-
 import { env } from "./env";
+
 const { DATABASE_URL } = env;
 
 async function main() {
-  // on crée un pool de connexion avec notre databse url (credentials)
   const pool = new Pool({ connectionString: DATABASE_URL });
 
-  // On initialise cette connexion pour avoir une instance de NodePgDatabase (et profiter de drizzle avec)
-  const db: NodePgDatabase = drizzle(pool);
+  try {
+    console.log("🌐 Connecting to database...");
+    const db: NodePgDatabase = drizzle(pool);
 
-  console.log("Migrating database...");
+    console.log("📦 Running migrations...");
+    await migrate(db, { migrationsFolder: "src/migrations" });
 
-  // on appelle la fonction migrate de drizzle pour appliquer la migration
-  await migrate(db, { migrationsFolder: "src/migrations" });
-
-  console.log("Database migrated successfully !");
-
-  // On ferme la connexion à la db
-  await pool.end();
+    console.log("✅ Database migrated successfully!");
+  } catch (err) {
+    console.error("❌ Migration failed:", err);
+  } finally {
+    // Toujours fermer le pool pour éviter les connexions pendantes
+    await pool.end();
+    console.log("🔌 Database connection closed.");
+  }
 }
 
 main();
