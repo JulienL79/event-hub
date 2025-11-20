@@ -11,5 +11,6 @@ export * from "./categoriesPreferences";
 export * from "./refunds";
 export * from "./roles";
 export * from "./users";
+export * from "./pictures";
 
 export * from "./relations";

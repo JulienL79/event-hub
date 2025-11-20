@@ -14,8 +14,8 @@ services:
   # 2. Backend API
   backend:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: ./
+      dockerfile: ./backend/Dockerfile
       target: builder
     container_name: eventhub_backend
     ports:

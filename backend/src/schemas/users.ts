@@ -29,10 +29,9 @@ export const users = pgTable("users", {
 
   isEmail: boolean("is_email").notNull().default(true),
   isSms: boolean("is_sms").notNull().default(true),
-  isInApp: boolean("is_in_app").notNull().default(true),
 
   language: varchar("language", { length: 10 }).notNull().default("fr"),
-  theme: varchar("theme", { length: 20 }).notNull().default("light"),
+  isDarkMode: boolean("is_dark_mode").notNull().default(false),
 
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),

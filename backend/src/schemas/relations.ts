@@ -13,6 +13,7 @@ import {
   invoices,
   reviews,
   refunds,
+  pictures,
 } from "./";
 
 export const roleRelations = relations(roles, ({ many }) => ({
@@ -51,6 +52,7 @@ export const categoryPreferenceRelations = relations(
 
 export const locationRelations = relations(locations, ({ many }) => ({
   events: many(events),
+  pictures: many(pictures),
 }));
 
 export const eventRelations = relations(events, ({ one, many }) => ({
@@ -69,6 +71,7 @@ export const eventRelations = relations(events, ({ one, many }) => ({
   ticketTypes: many(ticketTypes),
   bookings: many(bookings),
   reviews: many(reviews),
+  pictures: many(pictures),
 }));
 
 export const ticketTypeRelations = relations(ticketTypes, ({ one, many }) => ({
@@ -139,5 +142,16 @@ export const refundRelations = relations(refunds, ({ one }) => ({
   payment: one(payments, {
     fields: [refunds.paymentId],
     references: [payments.id],
+  }),
+}));
+
+export const pictureRelations = relations(pictures, ({ one }) => ({
+  event: one(events, {
+    fields: [pictures.eventId],
+    references: [events.id],
+  }),
+  location: one(locations, {
+    fields: [pictures.locationId],
+    references: [locations.id],
   }),
 }));
