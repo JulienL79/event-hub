@@ -2,6 +2,7 @@
 import Redis from "ioredis";
 // Importe vos variables d'environnement
 import { env } from "./index";
+import { logger } from "../utils";
 
 // Récupère les variables d'environnement
 const { REDIS_HOST, REDIS_PORT } = env;
@@ -22,11 +23,11 @@ const redisClient = new Redis({
 
 // 2. Gestion des événements (Logging)
 redisClient.on("connect", () => {
-  console.log("✅ Connexion à Redis réussie.");
+  logger.info("✅ Connexion à Redis réussie.");
 });
 
 redisClient.on("error", (err) => {
-  console.error("❌ Erreur de connexion à Redis:", err);
+  logger.error("❌ Erreur de connexion à Redis:", err);
   // En production, vous pourriez vouloir mettre fin à l'application ici
 });
 

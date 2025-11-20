@@ -8,13 +8,8 @@ export const pingController = {
 
       APIResponse(response, null, "OK");
     } catch (error: any) {
-      logger.error("Erreur lors de la récupération de l'image: ", error);
-      APIResponse(
-        response,
-        null,
-        "Erreur lors de la récupération de l'image",
-        500,
-      );
+      logger.error("Erreur lors du ping: ", error);
+      APIResponse(response, null, "Erreur lors du ping", 500);
     }
   },
 };

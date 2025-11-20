@@ -9,7 +9,6 @@ services:
     env_file:
       - .env.docker
     volumes:
-      - ./infrastructure/db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
       - postgres_data:/var/lib/postgresql/data
 
   # 2. Backend API

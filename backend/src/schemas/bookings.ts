@@ -4,11 +4,9 @@ import { bookingStatusEnum } from "./enums";
 
 export const bookings = pgTable("bookings", {
   id: uuid("id").primaryKey().defaultRandom(),
-
   userId: uuid("user_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
-
   eventId: uuid("event_id")
     .notNull()
     .references(() => events.id, { onDelete: "cascade" }),

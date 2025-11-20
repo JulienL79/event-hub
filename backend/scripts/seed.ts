@@ -16,9 +16,10 @@ import type {
   NewUser,
 } from "../src/entities";
 import { eq } from "drizzle-orm";
+import { logger } from "../src/utils";
 
 async function seedRoles() {
-  console.log("➤ Seeding roles...");
+  logger.info("➤ Seeding roles...");
   const roles = ["participant", "organizer", "admin"];
   const roleIds: Record<string, string> = {};
 
@@ -34,7 +35,7 @@ async function seedRoles() {
 }
 
 async function seedUsers(roleIds: Record<string, string>, length: number) {
-  console.log("➤ Seeding users...");
+  logger.info("➤ Seeding users...");
   const userIds: string[] = [];
 
   for (let i = 0; i < length; i++) {
@@ -70,7 +71,7 @@ async function seedUsers(roleIds: Record<string, string>, length: number) {
 }
 
 async function seedCategories() {
-  console.log("➤ Seeding categories...");
+  logger.info("➤ Seeding categories...");
   const categoryIds: string[] = [];
   const categories = ["Tech", "Art", "Sport", "Music", "Food"];
 
@@ -87,7 +88,7 @@ async function seedCategories() {
 }
 
 async function seedLocations(length: number) {
-  console.log("➤ Seeding locations...");
+  logger.info("➤ Seeding locations...");
   const locationIds: string[] = [];
 
   for (let i = 0; i < length; i++) {
@@ -102,6 +103,7 @@ async function seedLocations(length: number) {
         coordLat: faker.location.latitude().toString(),
         coordLon: faker.location.longitude().toString(),
         capacity: faker.number.int({ min: 50, max: 500 }),
+        equipments: faker.lorem.words(5),
       } as NewLocation)
       .returning({ id: schema.locations.id });
 
@@ -117,7 +119,7 @@ async function seedEvents(
   categories: string[],
   length: number,
 ) {
-  console.log("➤ Seeding events...");
+  logger.info("➤ Seeding events...");
   const eventIds: string[] = [];
 
   for (let i = 0; i < length; i++) {
@@ -135,7 +137,7 @@ async function seedEvents(
         dateStart: start,
         dateEnd: end,
         capacity: faker.number.int({ min: 50, max: 300 }),
-        priceMin: faker.number.float({ min: 0, max: 30 }).toString(),
+        priceMin: faker.number.float({ min: 0, max: 30 }).toFixed(2),
         status: "published",
       } as NewEvent)
       .returning({ id: schema.events.id });
@@ -147,7 +149,7 @@ async function seedEvents(
 }
 
 async function seedTicketTypes(events: string[]) {
-  console.log("➤ Seeding ticket types...");
+  logger.info("➤ Seeding ticket types...");
   const ticketTypeIds: string[] = [];
 
   for (const eventId of events) {
@@ -157,7 +159,7 @@ async function seedTicketTypes(events: string[]) {
         .values({
           eventId,
           name: type,
-          price: faker.number.float({ min: 5, max: 100 }).toString(),
+          price: faker.number.float({ min: 5, max: 100 }).toFixed(2),
           quota: faker.number.int({ min: 20, max: 200 }),
         } as NewTicketType)
         .returning({ id: schema.ticketTypes.id });
@@ -175,7 +177,7 @@ async function seedBookings(
   ticketTypes: string[],
   length: number,
 ) {
-  console.log("➤ Seeding bookings, tickets, payments, invoices...");
+  logger.info("➤ Seeding bookings, tickets, payments, invoices...");
 
   for (let i = 0; i < length; i++) {
     const userId = faker.helpers.arrayElement(users);
@@ -187,7 +189,7 @@ async function seedBookings(
         userId,
         eventId,
         status: "paid",
-        total_amount: faker.number.float({ min: 10, max: 200 }).toString(),
+        total_amount: faker.number.float({ min: 10, max: 200 }).toFixed(2),
       } as NewBooking)
       .returning({ id: schema.bookings.id });
 
@@ -198,14 +200,14 @@ async function seedBookings(
     await db.insert(schema.tickets).values({
       bookingId,
       ticketTypeId,
-      price: faker.number.float({ min: 10, max: 200 }).toString(),
+      price: faker.number.float({ min: 10, max: 200 }).toFixed(2),
     } as NewTicket);
 
     const paymentRes = await db
       .insert(schema.payments)
       .values({
         bookingId,
-        amount: faker.number.float({ min: 10, max: 200 }).toString(),
+        amount: faker.number.float({ min: 10, max: 200 }).toFixed(2),
         status: "succeeded",
       } as NewPayment)
       .returning({ id: schema.payments.id });
@@ -215,7 +217,7 @@ async function seedBookings(
       .values({
         bookingId,
         invoice_number: faker.string.uuid(),
-        total_amount: faker.number.float({ min: 10, max: 200 }).toString(),
+        total_amount: faker.number.float({ min: 10, max: 200 }).toFixed(2),
         billingName: faker.person.fullName(),
         billingEmail: faker.internet.email(),
         billingAddressStreet: faker.location.streetAddress(),
@@ -225,6 +227,7 @@ async function seedBookings(
         event_title: faker.lorem.words(3),
         event_start_date: faker.date.past(),
         event_end_date: faker.date.recent(),
+        organizerName: faker.person.fullName(),
       } as NewInvoice)
       .returning({ id: schema.invoices.id });
 
@@ -239,7 +242,7 @@ async function seedBookings(
 }
 
 async function seedReviews(users: string[], events: string[], length: number) {
-  console.log("➤ Seeding reviews...");
+  logger.info("➤ Seeding reviews...");
   for (let i = 0; i < length; i++) {
     await db.insert(schema.reviews).values({
       userId: faker.helpers.arrayElement(users),
@@ -254,7 +257,7 @@ async function seedCategoriesPreferences(
   users: string[],
   categories: string[],
 ) {
-  console.log("➤ Seeding categories preferences...");
+  logger.info("➤ Seeding categories preferences...");
   for (const userId of users) {
     const shuffled = faker.helpers.arrayElements(
       categories,
@@ -269,7 +272,7 @@ async function seedCategoriesPreferences(
 }
 
 async function main() {
-  console.log("🌱 Starting seeding...");
+  logger.info("🌱 Starting seeding...");
 
   try {
     const roleIds = await seedRoles();
@@ -283,9 +286,9 @@ async function main() {
     await seedReviews(users, events, 20);
     await seedCategoriesPreferences(users, categories);
 
-    console.log("✅ Seeding complete!");
+    logger.info("✅ Seeding complete!");
   } catch (err) {
-    console.error("❌ Seeding failed:", err);
+    logger.error("❌ Seeding failed:", err);
   } finally {
     await pool.end();
   }

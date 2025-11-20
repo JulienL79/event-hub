@@ -1,12 +1,10 @@
 import { Pool } from "pg";
 import { env } from "../src/config/env";
-import fs from "fs";
-import path from "path";
+import { logger } from "../src/utils";
 
 const pool = new Pool({ connectionString: env.DATABASE_URL });
 
 async function main() {
-  console.log(env.DATABASE_URL);
   try {
     await pool.query(`
 			DROP SCHEMA public CASCADE;
@@ -14,9 +12,9 @@ async function main() {
 			DROP SCHEMA drizzle CASCADE;
 			CREATE SCHEMA drizzle;
 		`);
-    console.log("✅ Toutes les tables et types ont été supprimés !");
+    logger.info("✅ Toutes les tables et types ont été supprimés !");
   } catch (err) {
-    console.error("❌ Erreur lors du truncate :", err);
+    logger.error("❌ Erreur lors du truncate :", err);
   } finally {
     await pool.end();
   }

@@ -5,6 +5,8 @@ import cookieParser from "cookie-parser";
 import { requestLogger } from "./middlewares";
 import router from "./routes";
 import { env } from "./config";
+import { logger } from "./utils";
+import { initDatabase } from "./config/db-init";
 
 // Initialise notre app express
 const app = express();
@@ -28,7 +30,13 @@ app.use(requestLogger);
 // Appel au router principal
 app.use("/", router);
 
-app.listen(PORT, () => {
-  // Mise en écoute du serveur
-  console.log("Le serveur est en écoute sur: http://localhost:" + PORT);
-});
+const startServer = async () => {
+  // Initialise la DB avant de démarrer le serveur
+  await initDatabase();
+  app.listen(PORT, () => {
+    // Mise en écoute du serveur
+    logger.info("Le serveur est en écoute sur: http://localhost:" + PORT);
+  });
+};
+
+startServer();
