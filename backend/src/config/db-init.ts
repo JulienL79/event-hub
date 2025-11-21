@@ -1,5 +1,5 @@
-import { pool } from "./";
-import { logger } from "../utils";
+import { pool } from "./index.js";
+import { logger } from "../utils/index.js";
 
 export async function initDatabase() {
   try {

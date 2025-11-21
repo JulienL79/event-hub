@@ -1,14 +1,19 @@
 import { Request, Response } from "express";
-import { env } from "../config/env";
+import { env } from "../config/env.js";
 import jwt from "jsonwebtoken";
 
-import { APIResponse, hashPassword, logger, verifyPassword } from "../utils";
-import { userModel } from "../models";
+import {
+  APIResponse,
+  hashPassword,
+  logger,
+  verifyPassword,
+} from "../utils/index.js";
+import { userModel } from "../models/index.js";
 
-import { userValidation } from "@eventhub/shared/validators";
+import { userValidation } from "@eventhub/shared/validators/index.js";
 import { z } from "zod";
-import { db } from "../config/pool";
-import { roles } from "../schemas";
+import { db } from "../config/pool.js";
+import { roles } from "../schemas/index.js";
 import { eq } from "drizzle-orm";
 
 const { JWT_SECRET, NODE_ENV } = env;

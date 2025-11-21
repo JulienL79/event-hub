@@ -6,8 +6,8 @@ import {
   text,
   timestamp,
 } from "drizzle-orm/pg-core";
-import { payments } from "./";
-import { refundStatusEnum } from "./enums";
+import { payments } from "./index.js";
+import { refundStatusEnum } from "./enums.js";
 
 export const refunds = pgTable("refunds", {
   id: uuid("id").defaultRandom().primaryKey(),

@@ -14,7 +14,7 @@ import {
   reviews,
   refunds,
   pictures,
-} from "./";
+} from "./index.js";
 
 export const roleRelations = relations(roles, ({ many }) => ({
   users: many(users),

@@ -1,6 +1,6 @@
 import { pgTable, uuid, numeric, timestamp } from "drizzle-orm/pg-core";
-import { users, events } from "./";
-import { bookingStatusEnum } from "./enums";
+import { users, events } from "./index.js";
+import { bookingStatusEnum } from "./enums.js";
 
 export const bookings = pgTable("bookings", {
   id: uuid("id").primaryKey().defaultRandom(),

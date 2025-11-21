@@ -1,8 +1,8 @@
 import { Pool } from "pg";
 import { migrate } from "drizzle-orm/node-postgres/migrator";
 import { NodePgDatabase, drizzle } from "drizzle-orm/node-postgres";
-import { env } from "./env";
-import { logger } from "../utils";
+import { env } from "./index.js";
+import { logger } from "../utils/index.js";
 
 const { DATABASE_URL } = env;
 

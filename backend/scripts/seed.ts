@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
-import { db, pool } from "../src/config/pool"; // Drizzle instance + pool
-import * as schema from "../src/schemas";
+import { db, pool } from "../src/config//index.js"; // Drizzle instance + pool
+import * as schema from "../src/schemas/index.js";
 import type {
   NewBooking,
   NewCategoriesPreference,

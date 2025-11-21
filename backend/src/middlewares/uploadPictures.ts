@@ -1,7 +1,7 @@
 // middlewares/uploadPictures.ts
 import multer from "multer";
 import { Request, Response, NextFunction } from "express";
-import { APIResponse, logger } from "../utils";
+import { APIResponse, logger } from "../utils/index.js";
 
 const storage = multer.memoryStorage();
 

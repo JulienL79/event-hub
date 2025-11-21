@@ -1,5 +1,5 @@
 import { pgTable, uuid, varchar, numeric, integer } from "drizzle-orm/pg-core";
-import { events } from "./";
+import { events } from "./index.js";
 
 export const ticketTypes = pgTable("ticket_types", {
   id: uuid("id").defaultRandom().primaryKey(),

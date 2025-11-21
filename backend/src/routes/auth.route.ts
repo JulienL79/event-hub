@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { authController } from "../controllers";
-import { isAuthenticated, requestLimiter } from "../middlewares";
+import { authController } from "../controllers/index.js";
+import { isAuthenticated, requestLimiter } from "../middlewares/index.js";
 
 const authRouter = Router();
 

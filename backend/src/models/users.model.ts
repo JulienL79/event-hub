@@ -1,7 +1,7 @@
-import { db } from "../config/pool";
-import { logger } from "../utils";
-import { roles, users } from "../schemas";
-import { NewUser } from "../entities";
+import { db } from "../config/pool.js";
+import { logger } from "../utils/index.js";
+import { roles, users } from "../schemas/index.js";
+import { NewUser } from "../entities/index.js";
 import { eq } from "drizzle-orm";
 
 export const userModel = {

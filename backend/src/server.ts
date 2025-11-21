@@ -2,11 +2,11 @@
 import express from "express";
 // import cors from "cors";
 import cookieParser from "cookie-parser";
-import { requestLogger } from "./middlewares";
-import router from "./routes";
-import { env } from "./config";
-import { logger } from "./utils";
-import { initDatabase } from "./config/db-init";
+import { requestLogger } from "./middlewares/index.js";
+import router from "./routes/index.js";
+import { env } from "./config/index.js";
+import { logger } from "./utils/index.js";
+import { initDatabase } from "./config/db-init.js";
 
 // Initialise notre app express
 const app = express();

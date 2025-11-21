@@ -4,12 +4,14 @@
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "lib": ["es2021", "dom"],
-    "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist",
     "skipLibCheck": true,
+    "outDir": "./dist",
+    "paths": {
+      "@eventhub/shared/*": ["../shared/*"]
+    },
     "typeRoots": ["./node_modules/@types", "./src/types"]
   },
   "include": ["src/**/*.ts"],

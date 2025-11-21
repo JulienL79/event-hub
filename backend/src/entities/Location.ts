@@ -1,5 +1,5 @@
 import { InferSelectModel, InferInsertModel } from "drizzle-orm";
-import { locations } from "../schemas";
+import { locations } from "../schemas/index.js";
 
 export type Location = InferSelectModel<typeof locations>;
 

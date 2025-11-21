@@ -1,8 +1,10 @@
-// Importe le client Redis (utilisant ioredis comme exemple)
-import Redis from "ioredis";
 // Importe vos variables d'environnement
-import { env } from "./index";
-import { logger } from "../utils";
+import { env } from "./index.js";
+import { logger } from "../utils/index.js";
+
+// Importe le client Redis (utilisant ioredis comme exemple)
+import pkg from "ioredis";
+const Redis = pkg.default;
 
 // Récupère les variables d'environnement
 const { REDIS_HOST, REDIS_PORT } = env;
@@ -14,22 +16,13 @@ if (!REDIS_HOST || !REDIS_PORT) {
   );
 }
 
-// 1. Configuration et Initialisation du client Redis
 const redisClient = new Redis({
-  host: REDIS_HOST,
-  port: parseInt(REDIS_PORT, 10),
-  // Ajoutez d'autres options si nécessaire (ex: mot de passe, TTL par défaut)
+  host: env.REDIS_HOST,
+  port: Number(env.REDIS_PORT),
+  retryStrategy: (times) => Math.min(times * 50, 2000), // retry 50ms, max 2s
 });
 
-// 2. Gestion des événements (Logging)
-redisClient.on("connect", () => {
-  logger.info("✅ Connexion à Redis réussie.");
-});
+redisClient.on("connect", () => logger.info("✅ Redis connected"));
+redisClient.on("error", (err) => logger.warn("❌ Redis not ready yet", err));
 
-redisClient.on("error", (err) => {
-  logger.error("❌ Erreur de connexion à Redis:", err);
-  // En production, vous pourriez vouloir mettre fin à l'application ici
-});
-
-// 3. Exporte le client connecté pour qu'il puisse être utilisé partout
 export default redisClient;

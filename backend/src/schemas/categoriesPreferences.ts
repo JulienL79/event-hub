@@ -1,5 +1,5 @@
-import { pgTable, uuid, primaryKey } from "drizzle-orm/pg-core";
-import { users, categories } from "./";
+import { pgTable, uuid } from "drizzle-orm/pg-core";
+import { users, categories } from "./index.js";
 
 export const categoriesPreferences = pgTable("categories_preferences", {
   userId: uuid("user_id")

@@ -1,5 +1,5 @@
 import { InferSelectModel, InferInsertModel } from "drizzle-orm";
-import { refunds } from "../schemas";
+import { refunds } from "../schemas/index.js";
 
 export type Refund = InferSelectModel<typeof refunds>;
 

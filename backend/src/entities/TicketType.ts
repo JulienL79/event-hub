@@ -1,5 +1,5 @@
 import { InferSelectModel, InferInsertModel } from "drizzle-orm";
-import { ticketTypes } from "../schemas";
+import { ticketTypes } from "../schemas/index.js";
 
 export type TicketType = InferSelectModel<typeof ticketTypes>;
 

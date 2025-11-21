@@ -7,8 +7,8 @@ import {
   integer,
   numeric,
 } from "drizzle-orm/pg-core";
-import { users, categories, locations } from "./";
-import { eventStatusEnum } from "./enums";
+import { users, categories, locations } from "./index.js";
+import { eventStatusEnum } from "./enums.js";
 
 export const events = pgTable("events", {
   id: uuid("id").defaultRandom().primaryKey(),

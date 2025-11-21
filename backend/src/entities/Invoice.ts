@@ -1,5 +1,5 @@
 import { InferSelectModel, InferInsertModel } from "drizzle-orm";
-import { invoices } from "../schemas";
+import { invoices } from "../schemas/index.js";
 
 export type Invoice = InferSelectModel<typeof invoices>;
 

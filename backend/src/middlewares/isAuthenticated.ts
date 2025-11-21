@@ -1,12 +1,12 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import { env } from "../config/env";
-import { APIResponse } from "../utils/response";
-import { userModel } from "../models";
-import { db } from "../config/pool";
-import { users } from "../schemas";
+import { env } from "../config/env.js";
+import { APIResponse } from "../utils/index.js";
+import { userModel } from "../models/index.js";
+import { db } from "../config/pool.js";
+import { users } from "../schemas/index.js";
 import { eq } from "drizzle-orm";
-import { logger } from "../utils";
+import { logger } from "../utils/index.js";
 
 const { JWT_SECRET } = env;
 

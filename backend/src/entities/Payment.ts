@@ -1,5 +1,5 @@
 import { InferSelectModel, InferInsertModel } from "drizzle-orm";
-import { payments } from "../schemas";
+import { payments } from "../schemas/index.js";
 
 export type Payment = InferSelectModel<typeof payments>;
 

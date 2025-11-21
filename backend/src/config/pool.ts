@@ -1,8 +1,8 @@
 import { Pool } from "pg";
-import { env } from "./env";
+import { env } from "./index.js";
 import { NodePgDatabase, drizzle } from "drizzle-orm/node-postgres";
 
-import * as schema from "../schemas";
+import * as schema from "../schemas/index.js";
 
 const { DATABASE_URL } = env;
 

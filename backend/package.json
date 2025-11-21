@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "dev": "concurrently \"tsc --watch\" \"tsnd --respawn src/server.ts\"",
-    "start": "node dist/server.js",
+    "start": "node dist/backend/src/server.js",
     "seed": "ts-node scripts/seed.ts",
     "db:drop": "ts-node scripts/drop.ts",
     "generate": "drizzle-kit generate --config=src/config/drizzle.config.ts",
@@ -17,7 +17,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "dependencies": {
     "@faker-js/faker": "^10.1.0",
     "argon2": "^0.44.0",

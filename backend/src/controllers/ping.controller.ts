@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { APIResponse, logger } from "../utils";
+import { APIResponse, logger } from "../utils/index.js";
 
 export const pingController = {
   ping: async (request: Request, response: Response) => {

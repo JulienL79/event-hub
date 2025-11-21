@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { defineConfig } from "drizzle-kit";
 
-import { env } from "./env";
+import { env } from "./index.js";
 const { DATABASE_URL } = env;
 
 export default defineConfig({

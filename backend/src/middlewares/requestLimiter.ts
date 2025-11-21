@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { logger, APIResponse } from "../utils";
+import { logger, APIResponse } from "../utils/index.js";
 import rateLimit from "express-rate-limit";
 
 export const requestLimiter = (limit: number) => {

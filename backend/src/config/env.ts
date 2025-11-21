@@ -1,6 +1,10 @@
 import dotenv from "dotenv";
 import path from "path";
-import { EnvConfig } from "../types/env";
+import { fileURLToPath } from "url";
+import { EnvConfig } from "../types/env.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config({
   path: path.resolve(__dirname, "../../../.env"),

@@ -1,2 +1,2 @@
-export * from "./ping.controller";
-export * from "./auth.controller";
+export * from "./ping.controller.js";
+export * from "./auth.controller.js";

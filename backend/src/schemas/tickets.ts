@@ -5,8 +5,8 @@ import {
   varchar,
   timestamp,
 } from "drizzle-orm/pg-core";
-import { bookings, ticketTypes } from "./";
-import { ticketStatusEnum } from "./enums";
+import { bookings, ticketTypes } from "./index.js";
+import { ticketStatusEnum } from "./enums.js";
 
 export const tickets = pgTable("tickets", {
   id: uuid("id").defaultRandom().primaryKey(),
