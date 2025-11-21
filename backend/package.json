@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "dev": "concurrently \"tsc --watch\" \"tsnd --respawn src/server.ts\"",
+    "dev": "tsx watch ./src/server.ts",
     "start": "node dist/backend/src/server.js",
     "seed": "ts-node scripts/seed.ts",
     "db:drop": "ts-node scripts/drop.ts",

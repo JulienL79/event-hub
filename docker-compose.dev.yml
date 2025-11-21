@@ -16,7 +16,6 @@ services:
     build:
       context: ./
       dockerfile: ./backend/Dockerfile.dev
-      target: builder
     container_name: eventhub_backend
     ports:
       - "3000:3000"
@@ -28,15 +27,16 @@ services:
       CHOKIDAR_USEPOLLING: true
     volumes:
       # Montage des dossiers pour le développement
-      - ./backend/src:/app/backend/src
+      - ./backend:/app/backend
       - ./shared:/app/shared
       - /app/backend/node_modules
+      - /app/shared/node_modules
     depends_on:
       db:
         condition: service_started
       redis:
         condition: service_started
-    command: npm run start --prefix ./backend
+    command: npm run dev
 
   # 4. Serveur Proxy
   nginx:

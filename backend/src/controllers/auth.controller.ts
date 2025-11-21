@@ -171,6 +171,7 @@ export const authController = {
         );
       }
       APIResponse(response, null, "Erreur serveur", 500);
+      console.log("test");
     }
   },
   logout: async (request: Request, response: Response) => {
